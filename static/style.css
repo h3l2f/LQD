@@ -1,0 +1,107 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    background-image: url("/static/login-background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: montserrat;
+    padding: 20px;
+}
+
+body::-webkit-scrollbar {
+    width: 0px;
+}
+
+.err {
+    background-color: rgba(255, 0, 0, 0.425);
+    border: solid 0.1px rgba(255, 0, 0, 0.568);;
+    padding: 5px;
+    border-radius: 7px;
+    margin-bottom: 7px;
+    text-align: center;
+}
+
+.login {
+    max-width: 300px !important;
+    width: 300px;
+    height: fit-content;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 15px;
+    border-radius: 15px;
+    display: inline-block;
+    backdrop-filter: blur(5px);
+}
+
+
+.inp {
+    margin-bottom: 6px;
+}
+
+.inp input {
+    border: none;
+    width: 100% !important;
+    padding: 5px;
+    background-color: #3493ff;
+    color: white;
+    border-radius: 5px;
+    /* text-align: center; */
+}
+
+.pinp input {
+    width: calc(100% - 30px) !important;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.pinp button {
+    border: none;
+    height: 25px;
+    width: 26px;
+    max-width: 30px !important;
+    border-radius: 0 5px 5px 0;
+    background-color: rgb(50, 132, 226);
+    color: white;
+    vertical-align: top;
+}
+
+.inp input::placeholder {
+    color: rgb(190, 190, 190);
+    margin: 5px;
+}
+
+.inp input:focus {
+    outline: none;
+}
+
+.submit {
+    width: fit-content;
+    margin: auto;
+}
+
+.submit input {
+    border: none;
+    padding: 5px 15px;
+    border-radius: 15px;
+    transition: 0.4s;
+    background-color: #7a7a7a;
+    color: white;
+}
+
+.submit input:hover {
+    background-color: #003cff;
+    color: white;
+}
+
+.err {
+    font-size: 15px;
+    color: rgb(150, 0, 0);
+}

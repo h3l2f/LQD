@@ -1,0 +1,346 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* transition: 0.2s; */
+}
+
+body {
+    height: 100vh;
+    background-image: url("/static/login-background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: montserrat;
+    padding: 10px;
+}
+
+body::-webkit-scrollbar {
+    width: 0px;
+}
+
+.main {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
+}
+
+.menu {
+    position: fixed;
+    z-index: 5;
+    width: 250px;
+    height: 100%;
+    max-height: 100%;
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(5px);
+    float: left;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+}
+
+.menu .name {
+    margin: 10px 0;
+    min-height: 50px;
+    text-align: right;
+    padding: 0 10px;
+}
+
+.menu .name .toggle {
+    float: left;
+    vertical-align: baseline;
+    width: 40px;
+    height: 40px;
+    padding: 5px;
+    margin-left: 2px;
+    border-radius: 10px;
+    transition: 0.2s;
+    position: fixed;
+}
+
+.menu .name .toggle:hover {
+    background-color: rgba(255, 255, 255, 0.205);
+    backdrop-filter: blur(5px);
+}
+
+.menu .item {
+    height: 100%;
+    overflow: scroll;
+}
+
+.menu .item div {
+    text-align: center;
+    padding: 10px 0;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.menu .item div:hover {
+    background-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.menu .item .menu-1 {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.menu .item::-webkit-scrollbar {
+    width: 0;
+}
+
+.menu .info {
+    width: 100%;
+    min-width: 45px;
+    position: relative;
+    margin-top: auto;
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
+    padding: 5px 0;
+}
+
+.menu .info .img {
+    width: 45px;
+    height: 45px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 10px;
+    display: inline-block;
+}
+
+.menu .info .img img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+
+.menu .info div {
+    vertical-align: bottom;
+    display: inline-block;
+    width: fit-content;
+    line-height: 90%;
+    max-width: 150px;
+}
+
+.menu .info div :where(h3, h6) {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+}
+
+.themeToggle {
+    position: fixed;
+    top: 100%;
+    left: 100%;
+    transform: translate(-100%, -100%);
+    padding: 10px;
+}
+
+.themeToggle button {
+    border: none;
+    background-color: rgba(0,0,0, 0.2);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    transition: 0.2s;
+}
+
+.themeToggle button:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.content {
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+}
+
+.content .loading {
+    position: fixed;
+    z-index: 2;
+    width: calc(100% - 85px);
+    height: calc(100% - 20px);
+    background-color: rgba(255, 255, 255, 0.25);
+    margin-left: 65px;
+    border-radius: 10px;
+    display: none;
+}
+
+.content .loading .loader {
+    width: 30px;
+    height: 30px;
+    border: solid 4px white;
+    border-radius: 50%;
+    border-top-color: #0040ff;
+    margin: auto;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {-webkit-transform: rotate(0deg);}
+    100% {-webkit-transform: rotate(360deg);}
+}
+
+.content .ctn {
+    height: 100%;
+    display: none;
+    overflow: scroll;
+    overflow-x: hidden;
+    margin-left: 65px;
+    background-color: rgba(255, 255, 255, 0.25);
+    padding: 10px;
+    border-radius: 10px;
+    transition: 0.2s;
+}
+
+.content .ctn::-webkit-scrollbar {
+    width: 0;
+}
+
+.content .ctn-2 {
+    display: block;
+    scroll-behavior: smooth;
+    scroll-margin-top: 10px;
+}
+
+.content .ctn-2 input[type="search"] {
+    position: fixed;
+    left: 100%;
+    transform: translateX(-100%);
+    margin-left: -20px;
+}
+
+.content .ctn-2 input[type="search"]::placeholder {
+    color: rgb(255, 255, 255);
+}
+
+.ctn h2 {
+    border: solid 1px black;
+    border-width: 0 0 1px 0;
+    margin-bottom: 10px
+}
+
+.ctn-1 .it {
+    background-color: rgba(255, 255, 255, 0.205);
+    padding: 10px 15px;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+    margin-top: 15px;
+    border-radius: 10px;
+}
+
+.ctn-2 .it {
+    background-color: rgba(255, 255, 255, 0.205);
+    padding: 10px 15px;
+    width: 100%;
+    margin: auto;
+    margin-top: 15px;
+    border-radius: 10px;
+    word-wrap: break-word;
+}
+
+.ctn-2 :where(input,textarea) {
+    background-color: rgba(255, 255, 255, 0.3);
+    width: 100%;
+    border: none;
+}
+
+.ctn-2 :where(input:focus, textarea:focus) {
+    outline: none;
+}
+
+.ctn-2 input {
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.ctn-2 textarea {
+    min-width: 100%;
+    min-height: 300px;
+    max-width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.actn {
+    display: none;
+}
+
+.warning {
+    background-color: rgba(255, 0, 0, 0.425);
+    border: solid 0.1px rgba(255, 0, 0, 0.568);
+    padding: 5px;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+
+.ctn-2 :where(.action) {
+    width: fit-content;
+    margin: auto;
+    margin-top: 5px;
+}
+
+.ctn-2 :where(.action) button {
+    padding: 7px 10px;
+    margin-left: 3px;
+    border: none !important;
+    height: 30px;
+    background-color: rgba(0, 26, 255, 0.884);
+    color: white !important;
+    transition: 0.2s;
+}
+
+.ctn-2 :where(.action) button:hover {
+    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), rgba(0, 26, 255, 0.884);
+}
+
+.ctn-2 :where(.action) button:first-child {
+    border-radius: 15px 0 0 15px;
+    padding-left: 13px;
+    background-color: rgba(0, 207, 0, 0.781);
+}
+
+.ctn-2 :where(.action) button:last-child {
+    border-radius: 0 15px 15px 0;
+    padding-right: 13px;
+    background-color: rgba(255, 0, 0, 0.781);
+}
+
+@media only screen and (max-width: 435px) {
+    .ctn-2 :where(.action) button {
+        padding: 7px 10px;
+        width: 100%;
+        margin-left: 3px;
+        border: none;
+        border-radius: 15px !important;
+        margin-bottom: 5px;
+        background-color: rgba(0, 26, 255, 0.884);
+        color: white !important;
+        transition: 0.2s;
+    }
+    
+    .ctn-2 :where(.action) button:hover {
+        background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), rgba(0, 26, 255, 0.884);
+    }
+    
+    .ctn-2 :where(.action) button:first-child {
+        padding-left: 13px;
+        background-color: rgba(0, 207, 0, 0.781);
+    }
+    
+    .ctn-2 :where(.action) button:last-child {
+        padding-right: 13px;
+        background-color: rgba(255, 0, 0, 0.781);
+    }
+}
+
+/* .menu {display: none;} */
