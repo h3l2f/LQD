@@ -269,7 +269,7 @@ validIdSearch = 0
         $(".loading").fadeIn()
         formData = new FormData();
         formData.append("stt",stt);
-        fetch("http://127.0.0.1/admin/edit/article/"+id, {
+        fetch("/admin/edit/article/"+id, {
         method: "OPTIONS",
         body: formData,
         })
@@ -292,7 +292,7 @@ validIdSearch = 0
         formData = new FormData();
         formData.append("content",content);
         formData.append("author",author);
-        fetch("http://127.0.0.1/admin/edit/article/"+id, {
+        fetch("/admin/edit/article/"+id, {
         method: "POST",
         body: formData,
         })
@@ -312,7 +312,7 @@ validIdSearch = 0
         id = ($(t).parent().parent().attr("class").replaceAll("it num-",""))
         if (confirm(`Do you REALLY want to delete this article?\nID: ${id}`)) {
             $(".loading").fadeIn()
-            fetch("http://127.0.0.1/admin/edit/article/"+id, {
+            fetch("/admin/edit/article/"+id, {
             method: "DELETE"
             })
             .then(s => s.json())
