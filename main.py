@@ -192,7 +192,7 @@ def bv(id=0):
     sqlside.execute(f"update articleContent set view = view+1 where id={id}",type="update")
     sqlside.execute(f"update viewPerDay set view = view+1 where day={today}",type="update")
     if id1: id = id1[1]
-    return render_template("article.html", logged = logged, nf=False, id=id, author=s[0], view=s[4]+1, createTime = cDate, lastTime = lChange, content = md(ctn).replace("\n", "<br>"))
+    return render_template("article.html", loggd = logged, nf=False, id=id, author=s[0], view=s[4]+1, createTime = cDate, lastTime = lChange, content = md(ctn).replace("\n", "<br>"))
 
 if __name__ == '__main__':
     app.run(debug=True,host="0.0.0.0",port='80')
