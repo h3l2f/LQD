@@ -6,9 +6,23 @@ from flask_cors import CORS
 from datetime import datetime
 from bs4 import BeautifulSoup
 from markdown import markdown as md
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__,template_folder='templates')
 CORS(app)
+
+def getImgLink(html):
+    html = markdown.markdown( html )
+    
+    soup = BeautifulSoup(html, 'html.parser')
+
+    img = []
+    for link in soup.find_all('img'):
+        img.append(link.get('src'))
+    return img[0] if img != [] else None
 
 def checkCookie(cookie):
     s = sqlside.execute(f"select username,alive from session where sid='{cookie}'")
@@ -76,13 +90,36 @@ def logout():
     resp.delete_cookie("sid")
     return resp
 
-@app.route("/admin/delete/<catelogy>/<id>",methods=["DELETE"])
-def deleteItem(catelogy,id):
+@app.route("/admin/edit/<catelogy>/<id>",methods=["POST","DELETE","OPTIONS"])
+def editItem(catelogy=None,id=None):
+    if (catelogy==None) or (id==None):
+        return jsonify({"status":"error","message":"You Need To Provide Catelogy And ID To Make Edit!"})
+    
     ch = checkCookie(request.cookies.get('sid'))
     if ch[0] == False: return redirect(ch[1],code=302)
     data = ch[1]
     if data[0][1] != "admin": return redirect("/?auth=forbidden",code=302)
-    return f"{catelogy} & {id}"
+
+    if request.method == "POST":
+        if catelogy == "article":
+            content = request.form.get("content") if request.form.get("content") != None else ""
+            author = request.form.get("author") if request.form.get("author") != None else ""
+            if (len(content) < 500) or (len(content.split(" ")) < 300):
+                return jsonify({"status":"error", "message": f"Content Should Be At Least 500 Characters And 300 Words!\nCharacters: {len(content)}\nWords: {len(content.split(' '))}"})
+            elif len(author.replace(" ","")) == 0: return jsonify({"status":"error", "message": f"Author Should Be At Least 1 Name!"})
+            else:
+                today = int(time.time())
+                sqlside.execute(f"update articleContent set content='{content}', lastChange={today}, author='{author}' where id={id}",type='update')
+                return jsonify({"status":"ok"})
+
+        return jsonify({"status":"ok", "content": content})
+    elif request.method == "DELETE":
+        return jsonify({"status":"error", "message":"Delete Article Is Currently Disabled!"})
+    elif request.method == "OPTIONS":
+        stt = "hide" if request.form.get("stt") == "HIDE" else "show"
+        today = int(time.time())
+        sqlside.execute(f"update articleContent set lastChange={today}, type='{stt}' where id={id}",type='update')
+        return jsonify({"status":"ok"})
 
 @app.route("/admin/",methods=["GET","POST"])
 def admin():
@@ -103,14 +140,20 @@ def admin():
         s = sqlside.execute("SELECT * FROM articleContent ORDER BY view DESC")
         s = json.dumps(s, default=str)
         today = int(datetime.now().strftime("%d%m%y"))
-        s1 = sqlside.execute(f"select count(*) from loginInformation union select count(*) from articleContent union select sum(view) from articleContent union select ifnull((select view from viewPerDay where day={today}),-1)")
+        s1 = sqlside.execute(f"""
+        select
+            (select count(*) from loginInformation) as c1,
+            (select count(*) from articleContent) as c2,
+            (select sum(view) from articleContent) as c3,
+            (select view from viewPerDay where day={today}) as c4;
+        """)
         tAccount = int(s1[0][0])
-        tArticle = int(s1[1][0])
-        tView = int(s1[2][0])
-        if s1[3][0] == -1:
+        tArticle = int(s1[0][1])
+        tView = int(s1[0][2])
+        if s1[0][3] == None:
             sqlside.execute(f"INSERT INTO viewPerDay (day, view) values ({today}, 0);",type="insert")
             todayView = 0
-        else: todayView = int(s1[3][0])
+        else: todayView = int(s1[0][3])
 
         rData = {"mainTabData": [tView, tArticle, todayView],
                  "articleTabData": json.loads(s),
@@ -140,12 +183,16 @@ def bv(id=0):
     if s == []: return render_template("article.html", logged = logged, nf=True, id=id)
     s = s[0]
     if s[3] != "show":
+        if id1: id = id1[1]
         return render_template("article.html", logged = logged, nf=True, id=id)
     cDate = datetime.fromtimestamp(s[1]).strftime("%H:%M:%S %d/%m/%y")
     lChange = datetime.fromtimestamp(s[2]).strftime("%H:%M:%S %d/%m/%y")
     ctn = BeautifulSoup(s[5], "lxml").text
+    today = int(datetime.now().strftime("%d%m%y"))
+    sqlside.execute(f"update articleContent set view = view+1 where id={id}",type="update")
+    sqlside.execute(f"update viewPerDay set view = view+1 where day={today}",type="update")
     if id1: id = id1[1]
-    return render_template("article.html", logged = logged, nf=False, id=id, author=s[0], view=s[4], createTime = cDate, lastTime = lChange, content = md(ctn).replace("\n", "<br>"))
+    return render_template("article.html", logged = logged, nf=False, id=id, author=s[0], view=s[4]+1, createTime = cDate, lastTime = lChange, content = md(ctn).replace("\n", "<br>"))
 
 if __name__ == '__main__':
     app.run(debug=True,host="0.0.0.0",port='80')

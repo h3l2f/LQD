@@ -67,24 +67,6 @@
         <div class="ctn ctn-2">
             <input type="search" style="max-width: 250px;" placeholder="Search By ID" onkeyup="search(this)">
             <h2>Articles</h2>
-            <!-- <div class="it num-${id}">
-                <h3 style="float: right;">ID: ${id} | Views: ${view} | Created By: ${cby}</h3>
-                <h3 >INFORMATION:</h3>
-                <h5 >Author: <input type="text" value="${author}"></h5>
-                <h5>Create Time: ${createTime}</h5>
-                <h5 >last change: ${lastTime}</h5>
-                <h4 style="float: right; cursor: pointer;" onclick="$(this).parent().children('.n1').slideToggle(); $(this).html($(this).html() == '|show|' ? '|hide|' : '|show|')">|show|</h4>
-                <h3>Content: </h3>
-                <div class="actn n1" >
-                    <div class="warning">
-                        <h6 style="color: white !important;">Remember: We use markdown format for content, so all html tags will be replace with an empty string!</h6>
-                    </div>
-                    <textarea>${content}</textarea>
-                </div>
-                <div class="action">
-                    <button>UPDATE</button><button>${astt} ARTICLE</button><button onclick='if (confirm("Do you REALLY want to delete this article?\nID: ${id}")) $(".num-${id}").remove()'>DELETE</button>
-                </div>
-            </div> -->
         </div>
         <div class="ctn ctn-3">
             <h2>Accounts</h2>
@@ -127,7 +109,7 @@ validIdSearch = 0
             $("#todayView").html(`${s.mainTabData[2]}`)
 
             // article
-            $(".ctn-2 .it").remove()
+            //$(".ctn-2 .it").remove()
             s1 = s.articleTabData
             for (i in s1) addArticle(s1[i][0], s1[i][2], unix_std(s1[i][3]), unix_std(s1[i][4]), s1[i][1], s1[i][5] == 'show' ? 'HIDE' : 'SHOW', s1[i][6], s1[i][7])
             $(".loading").fadeOut()
@@ -198,7 +180,7 @@ validIdSearch = 0
             }, function(){
             $(this).css("background-color", "rgba(0,0,0, 0.2)");
         });
-        // getReady()
+        getReady()
         if (document.cookie.includes("theme=dark")) {
             darkmode()
         } else if (document.cookie.includes("theme=light")) {
@@ -247,23 +229,30 @@ validIdSearch = 0
     }
 
     function addArticle(id,author,createTime,lastTime,content,astt,view,cby) {
+        if ($(`.num-${id}`).length) {
+            $(`.num-${id} #view`).html(view)
+            $(`.num-${id} #author input`).val(author)
+            $(`.num-${id} #lChange`).html(lastTime)
+            $(`.num-${id} #astt`).html(astt)
+            return
+        }
         $(".ctn-2").append(`
         <div class="it num-${id}">
-                <h3 style="float: right;">ID: ${id} | Views: ${view} | Created By: ${cby}</h3>
+                <h3 style="float: right;">ID: ${id} | Views: <t id='view'>${view}</t> | Created By: ${cby}</h3>
                 <h3 >INFORMATION:</h3>
-                <h5 >Author: <input type="text" value="${author}"></h5>
-                <h5>Create Time: ${createTime}</h5>
-                <h5 >last change: ${lastTime}</h5>
+                <h5 id='author'>Author: <input type="text" value="${author}"></h5>
+                <h5>Create Time: <t id='cTime'>${createTime}</t></h5>
+                <h5>last change: <t id='lChange'>${lastTime}</t></h5>
                 <h4 style="float: right; cursor: pointer;" onclick="$(this).parent().children('.n1').slideToggle(); $(this).html($(this).html() == '|show|' ? '|hide|' : '|show|')">|show|</h4>
                 <h3>Content: </h3>
-                <div class="actn n1" >
+                <div class="actn n1">
                     <div class="warning">
                         <h6 style="color: white !important;">Remember: We use markdown format for content, so all html tags will be replace with an empty string!</h6>
                     </div>
                     <textarea>${content}</textarea>
                 </div>
                 <div class="action">
-                    <button>UPDATE</button><button>${astt} ARTICLE</button><button onclick="deleteArticle(this)">DELETE</button>
+                    <button onclick='updateArticle(this)'>UPDATE</button><button onclick='caArticle(this)'><t id='astt'>${astt}</t> ARTICLE</button><button onclick="deleteArticle(this)">DELETE</button>
                 </div>
             </div>
         `)
@@ -274,15 +263,66 @@ validIdSearch = 0
         }
     }
 
+    function caArticle(t) {
+        stt = $(t).children("#astt").html();
+        id = ($(t).parent().parent().attr("class").replaceAll("it num-",""))
+        $(".loading").fadeIn()
+        formData = new FormData();
+        formData.append("stt",stt);
+        fetch("http://127.0.0.1/admin/edit/article/"+id, {
+        method: "OPTIONS",
+        body: formData,
+        })
+        .then(s => s.json())
+        .then(s => {
+            if (s.status == "error") {
+                alert(`ERROR:\n${s.message}`)
+            } else {
+                alert("Successfully!")
+            }
+            getReady()
+        });
+        }
+
+    function updateArticle(t) {
+        $(".loading").fadeIn()
+        id = ($(t).parent().parent().attr("class").replaceAll("it num-",""))
+        author = ($(`.num-${id} #author input`).val())
+        content = ($(t).parent().parent().children(".actn").children("textarea").val())
+        formData = new FormData();
+        formData.append("content",content);
+        formData.append("author",author);
+        fetch("http://127.0.0.1/admin/edit/article/"+id, {
+        method: "POST",
+        body: formData,
+        })
+        .then(s => s.json())
+        .then(s => {
+            if (s.status == "error") {
+                alert(`ERROR:\n${s.message}`)
+            } else {
+                alert("Successfully!")
+            }
+            // $(".loading").fadeOut()
+            getReady()
+        });
+    }
+
     function deleteArticle(t) {
         id = ($(t).parent().parent().attr("class").replaceAll("it num-",""))
         if (confirm(`Do you REALLY want to delete this article?\nID: ${id}`)) {
             $(".loading").fadeIn()
-            response = fetch(`/admin/delete/article/${id}`, {method: 'DELETE'})
-            .then(s => s.text())
+            fetch("http://127.0.0.1/admin/edit/article/"+id, {
+            method: "DELETE"
+            })
+            .then(s => s.json())
             .then(s => {
-                console.log(s)
-                $(`.num-${id}`).remove();
+                if (s.status == "error") {
+                    alert(`ERROR:\n${s.message}`)
+                } else {
+                    alert("Successfully!")
+                }
+                if (s.status == "ok") $(`.num-${id}`).remove();
                 getReady()
             });
             // $(`.num-${id}`).remove();

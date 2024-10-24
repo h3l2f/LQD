@@ -206,7 +206,7 @@ body::-webkit-scrollbar {
 
 .content .ctn-2 {
     display: block;
-    scroll-behavior: smooth;
+    /* scroll-behavior: smooth; */
     scroll-margin-top: 10px;
 }
 

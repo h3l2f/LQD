@@ -4,3 +4,4 @@ mysql-connector-python
 flask-cors
 markdown
 lxml
+bs4

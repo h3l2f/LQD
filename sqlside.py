@@ -16,12 +16,12 @@ def connect():
 
     return mydb
 
-def execute(sql,type:str=None):
+def execute(sql,type:str=None,multi=False):
     mydb = connect()
     mycursor = mydb.cursor()
     
     # sql = f"SELECT * FROM RedeemCode WHERE `Type` = '{_type}' AND `Used` = '0'"
-    mycursor.execute(sql)
+    mycursor.execute(sql,multi=multi)
 
     if type == None: fetch = mycursor.fetchall()
     else:
