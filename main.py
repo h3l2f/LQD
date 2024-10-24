@@ -137,7 +137,7 @@ def admin():
         data = ch[1]
         if data[0][1] != "admin": return redirect("/?auth=forbidden",code=302)
         
-        s = sqlside.execute("SELECT * FROM articleContent ORDER BY view DESC")
+        s = sqlside.execute("SELECT * FROM articleContent ORDER BY id DESC")
         s = json.dumps(s, default=str)
         today = int(datetime.now().strftime("%d%m%y"))
         s1 = sqlside.execute(f"""

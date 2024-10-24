@@ -299,6 +299,10 @@ body::-webkit-scrollbar {
     transition: 0.2s;
 }
 
+.ctn-2 :where(.action) button #astt {
+    color: white !important;
+}
+
 .ctn-2 :where(.action) button:hover {
     background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), rgba(0, 26, 255, 0.884);
 }
