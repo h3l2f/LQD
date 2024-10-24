@@ -319,6 +319,20 @@ body::-webkit-scrollbar {
     background-color: rgba(255, 0, 0, 0.781);
 }
 
+@media only screen and (max-width: 480px) {
+    .content .ctn-2 input[type="search"] {
+        /* left: 100%; */
+        max-width: 100% !important;
+        width: calc(100% - 105px);
+        transform: translateX(-100%);
+        margin-left: -20px;
+    }
+
+    .ctn-2 h2 {
+        margin-top: 30px;
+    }
+}
+
 @media only screen and (max-width: 435px) {
     .ctn-2 :where(.action) button {
         padding: 7px 10px;
