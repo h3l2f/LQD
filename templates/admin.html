@@ -67,6 +67,22 @@
         <div class="ctn ctn-2">
             <input type="search" style="max-width: 250px;" placeholder="Search By ID" onkeyup="search(this)">
             <h2>Articles</h2>
+            <div class="create">
+                <div class="btn">
+                    <button onclick='$("body > div > div.content > div.ctn.ctn-2 > div > div.form").slideToggle()'><h4>CREATE</h4></button>
+                </div>
+                <div class="form">
+                <h5 id='author'>Author: <input type="text" placeholder="author"></h5>
+                <h3>Content: </h3>
+                    <div class="warning">
+                        <h6 style="color: white !important;">Remember: We use markdown format for content, so all html tags will be replace with an empty string!</h6>
+                    </div>
+                    <textarea placeholder="Content"></textarea>
+                <div class="action">
+                    <button onclick="createArticle(this)">ADD</button>
+                </div>
+                </div>
+            </div>
         </div>
         <div class="ctn ctn-3">
             <h2>Accounts</h2>
@@ -283,6 +299,33 @@ validIdSearch = 0
             getReady()
         });
         }
+
+    function createArticle(t) {
+        content = $(t).parent().parent().children("textarea").val()
+        author = $(t).parent().parent().children("#author").children("input").val()
+        $(".loading").fadeIn()
+        formData = new FormData();
+        formData.append("content",content);
+        formData.append("author",author);
+        fetch("/admin/add/article/", {
+        method: "POST",
+        body: formData,
+        })
+        .then(s => s.json())
+        .then(s => {
+            if (s.status == "error") {
+                alert(`ERROR:\n${s.message}`)
+                $(".loading").fadeOut()
+            } else {
+                alert("Successfully!\nArticle ID: "+s.id)
+                getReady()
+                $("body > div > div.content > div.ctn.ctn-2 > div > div.form").slideToggle()
+                $(t).parent().parent().children("textarea").val("")
+                $(t).parent().parent().children("#author").children("input").val("")
+            }
+            // $(".loading").fadeOut()
+        });
+    }
 
     function updateArticle(t) {
         $(".loading").fadeIn()

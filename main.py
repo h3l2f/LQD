@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 from markdown import markdown as md
 import os
 from dotenv import load_dotenv
+import json
 
 load_dotenv()
 
@@ -90,6 +91,23 @@ def logout():
     resp.delete_cookie("sid")
     return resp
 
+@app.route("/admin/add/article/",methods=["POST"])
+def cArticle():
+    ch = checkCookie(request.cookies.get('sid'))
+    if ch[0] == False: return redirect(ch[1],code=302)
+    data = ch[1]
+    if data[0][1] != "admin": return redirect("/?auth=forbidden",code=302)
+    user = data[0][3]
+    content = request.form.get("content") if request.form.get("content") != None else ""
+    author = request.form.get("author") if request.form.get("author") != None else ""
+    if (len(content) < 500) or (len(content.split(" ")) < 300):
+        return jsonify({"status":"error", "message": f"Content Should Be At Least 500 Characters And 300 Words!\nCharacters: {len(content)}\nWords: {len(content.split(' '))}"})
+    elif len(author.replace(" ","")) == 0: return jsonify({"status":"error", "message": f"Author Should Be At Least 1 Name!"})
+    else:
+        today = int(time.time())
+        s = sqlside.execute(f"insert into articleContent (content,author,createDate,lastChange,type,createdBy) values ('{content}','{author}', {today}, {today},'show','{user}')",type='insert')
+        return jsonify({"status":"ok","id": s[0]})
+
 @app.route("/admin/edit/<catelogy>/<id>",methods=["POST","DELETE","OPTIONS"])
 def editItem(catelogy=None,id=None):
     if (catelogy==None) or (id==None):
@@ -170,9 +188,10 @@ def bv(id=0):
     if ch[0] == False: logged = False
     else: logged = True
     id1 = None
-    sA = {
-        "gioithieu": [-1,"Giới Thiệu"]
-    }
+    
+    with open("sA.json","r") as f:
+        d = json.load(f)
+    sA = d["gioithieu"]
 
     if not id.isdigit():
         id1 = sA.get(id)

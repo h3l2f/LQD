@@ -307,16 +307,54 @@ body::-webkit-scrollbar {
     background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), rgba(0, 26, 255, 0.884);
 }
 
-.ctn-2 :where(.action) button:first-child {
+.ctn-2 .it :where(.action) button:first-child {
     border-radius: 15px 0 0 15px;
     padding-left: 13px;
     background-color: rgba(0, 207, 0, 0.781);
 }
 
-.ctn-2 :where(.action) button:last-child {
+.ctn-2 .it :where(.action) button:last-child {
     border-radius: 0 15px 15px 0;
     padding-right: 13px;
     background-color: rgba(255, 0, 0, 0.781);
+}
+
+.ctn-2 .create .btn {
+    width: fit-content;
+    margin: auto;
+}
+
+.ctn-2 .create {
+    background-color: rgba(255, 255, 255, 0.125);
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.ctn-2 > div > div.form {display: none;}
+
+.ctn-2 > div > div.form > div.action {
+    width: 100%;
+}
+
+.ctn-2 > div > div.form :where(input, textarea)::placeholder {
+    color: black !important;
+}
+
+.ctn-2 > div > div.form > div.action > button {
+    border-radius: 15px;
+    width: 100%;
+}
+
+.ctn-2 .create .btn button {
+    border: none;
+    padding: 15px 45px;
+    border-radius: 30px;
+    background-color: rgba(255, 255, 255, 0.3);
+    transition: 0.2s;
+}
+
+.ctn-2 .create .btn button:hover {
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 @media only screen and (max-width: 480px) {
@@ -334,7 +372,7 @@ body::-webkit-scrollbar {
 }
 
 @media only screen and (max-width: 435px) {
-    .ctn-2 :where(.action) button {
+    .ctn-2 .it :where(.action) button {
         padding: 7px 10px;
         width: 100%;
         margin-left: 3px;
@@ -346,16 +384,16 @@ body::-webkit-scrollbar {
         transition: 0.2s;
     }
     
-    .ctn-2 :where(.action) button:hover {
+    .ctn-2 .it :where(.action) button:hover {
         background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), rgba(0, 26, 255, 0.884);
     }
     
-    .ctn-2 :where(.action) button:first-child {
+    .ctn-2 .it :where(.action) button:first-child {
         padding-left: 13px;
         background-color: rgba(0, 207, 0, 0.781);
     }
     
-    .ctn-2 :where(.action) button:last-child {
+    .ctn-2 .it :where(.action) button:last-child {
         padding-right: 13px;
         background-color: rgba(255, 0, 0, 0.781);
     }

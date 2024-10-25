@@ -26,6 +26,9 @@ def execute(sql,type:str=None,multi=False):
     if type == None: fetch = mycursor.fetchall()
     else:
         mydb.commit()
-        fetch = ['Nothing To Return!']
+        try:
+            fetch = [mycursor.lastrowid]
+        except Exception:
+            fetch = ['Nothing To Return!']
 
     return fetch
