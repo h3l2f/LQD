@@ -189,9 +189,8 @@ def bv(id=0):
     else: logged = True
     id1 = None
     
-    with open("sA.json","r") as f:
-        d = json.load(f)
-    sA = d["gioithieu"]
+    with open("sA.json","r", encoding="utf-8") as f:
+        sA = json.load(f)
 
     if not id.isdigit():
         id1 = sA.get(id)
