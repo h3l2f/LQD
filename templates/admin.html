@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simplemde/1.11.2/simplemde.min.css" integrity="sha512-lB03MbtC3LxImQ+BKnZIyvVHTQ8SSmQ15AhVh5U/+CCp4wKtZMvgLGXbZIjIBBbnKsmk3/6n2vcF8a9CtVVSfA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simplemde/1.11.2/simplemde.min.js" integrity="sha512-ksSfTk6JIdsze75yZ8c+yDVLu09SNefa9IicxEE+HZvWo9kLPY1vrRlmucEMHQReWmEdKqusQWaDMpkTb3M2ug==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <meta charset="UTF-8">
     <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>
     <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script>
@@ -220,6 +222,8 @@ validIdSearch = 0
             $('.ctn-2').animate({scrollTop: 0},10);
         });
 
+        md_create = new SimpleMDE({ element: $(`body > div > div.content > div.ctn.ctn-2 > div.create > div.form > div:nth-child(4) > textarea`)[0] })
+
         setTimeout(()=>{
             $(".menu").width("65")
             $(".name h1, .item, #name, .themeToggle").hide();
@@ -306,6 +310,7 @@ validIdSearch = 0
                 </div>
             </div>
         `)
+        window[`md_${id}`] = new SimpleMDE({ element: $(`body > div > div.content > div.ctn.ctn-2 > div.it.num-${id} > div.actn.n1 > div:nth-child(2) > textarea`)[0] })
         if (document.cookie.includes("theme=dark")) {
             darkmode()
         } else  {
@@ -335,7 +340,7 @@ validIdSearch = 0
         }
 
     function createArticle(t) {
-        content = $(t).parent().parent().children("div").children("textarea").val()
+        content = md_create.value()
         author = $(t).parent().parent().children("#author").children("input").val()
         $(".loading").fadeIn()
         formData = new FormData();
@@ -354,7 +359,7 @@ validIdSearch = 0
                 alert("Successfully!\nArticle ID: "+s.id)
                 getReady()
                 $("body > div > div.content > div.ctn.ctn-2 > div > div.form").slideToggle()
-                $(t).parent().parent().children("div").children("textarea").val("")
+                md_create.value("")
                 $(t).parent().parent().children("#author").children("input").val("")
             }
             // $(".loading").fadeOut()
@@ -365,7 +370,7 @@ validIdSearch = 0
         $(".loading").fadeIn()
         id = ($(t).parent().parent().attr("class").replaceAll("it num-",""))
         author = ($(`.num-${id} #author input`).val())
-        content = ($(t).parent().parent().children(".actn").children("div").children("textarea").val())
+        content = window[`md_${id}`].value()
         formData = new FormData();
         formData.append("content",content);
         formData.append("author",author);
@@ -399,8 +404,7 @@ validIdSearch = 0
                 } else {
                     alert("Successfully!")
                 }
-                if (s.status == "ok") $(`.num-${id}`).remove();
-                getReady()
+                if (s.status == "ok") {$(`.num-${id}`).remove(); getReady()};
             });
             // $(`.num-${id}`).remove();
         }

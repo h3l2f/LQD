@@ -404,4 +404,17 @@ body::-webkit-scrollbar {
     }
 }
 
+.editor-toolbar {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.CodeMirror.cm-s-paper.CodeMirror-wrap {
+    background-color: rgba(0, 0, 0, 0.25);
+    border: none;
+}
+
+.CodeMirror, .CodeMirror-scroll {
+	height: 500px;
+}
+
 /* .menu {display: none;} */
