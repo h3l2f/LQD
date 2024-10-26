@@ -100,8 +100,12 @@ def cArticle():
     user = data[0][3]
     content = request.form.get("content") if request.form.get("content") != None else ""
     author = request.form.get("author") if request.form.get("author") != None else ""
-    if (len(content) < 500) or (len(content.split(" ")) < 300):
-        return jsonify({"status":"error", "message": f"Content Should Be At Least 500 Characters And 300 Words!\nCharacters: {len(content)}\nWords: {len(content.split(' '))}"})
+    s = content.split(" ")
+    while ('' in s):
+        s.pop(s.index(''))
+    
+    if (len(content) < 300) or (len(s) < 150):
+        return jsonify({"status":"error", "message": f"Content Should Be At Least 300 Characters And 150 Words!\nCharacters: {len(content)}\nWords: {len(s)}"})
     elif len(author.replace(" ","")) == 0: return jsonify({"status":"error", "message": f"Author Should Be At Least 1 Name!"})
     else:
         today = int(time.time())
@@ -122,8 +126,11 @@ def editItem(catelogy=None,id=None):
         if catelogy == "article":
             content = request.form.get("content") if request.form.get("content") != None else ""
             author = request.form.get("author") if request.form.get("author") != None else ""
-            if (len(content) < 500) or (len(content.split(" ")) < 300):
-                return jsonify({"status":"error", "message": f"Content Should Be At Least 500 Characters And 300 Words!\nCharacters: {len(content)}\nWords: {len(content.split(' '))}"})
+            s = content.split(" ")
+            while ('' in s):
+                s.pop(s.index(''))
+            if (len(content) < 300) or (len(s) < 150):
+                return jsonify({"status":"error", "message": f"Content Should Be At Least 300 Characters And 150 Words!\nCharacters: {len(content)}\nWords: {len(s)}"})
             elif len(author.replace(" ","")) == 0: return jsonify({"status":"error", "message": f"Author Should Be At Least 1 Name!"})
             else:
                 today = int(time.time())

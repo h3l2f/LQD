@@ -347,6 +347,7 @@ body::-webkit-scrollbar {
 .ctn-2 > div > div.form > div.action > button {
     border-radius: 15px;
     width: 100%;
+    margin-left: unset;
 }
 
 .ctn-2 .create .btn button {
