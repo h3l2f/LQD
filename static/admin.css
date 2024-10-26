@@ -410,7 +410,7 @@ body::-webkit-scrollbar {
 
 div.editor-preview.editor-preview-active {
     background-color: rgba(255, 255, 255, 0.9);
-    color: black;
+    color: black !important;
 }
 
 .editor-toolbar.fullscreen::after, .editor-toolbar.fullscreen::before {
