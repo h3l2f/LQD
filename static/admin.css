@@ -408,9 +408,10 @@ body::-webkit-scrollbar {
     background-color: rgba(255, 255, 255, 0.3);
 }
 
-div.editor-preview.editor-preview-active {
+div.editor-preview.editor-preview-active * {
     background-color: rgba(255, 255, 255, 0.9);
     color: black !important;
+    border-bottom-color: unset !important;
 }
 
 .editor-toolbar.fullscreen::after, .editor-toolbar.fullscreen::before {
