@@ -173,7 +173,17 @@ def admin():
             todayView = 0
         else: todayView = int(s1[0][3])
 
-        rData = {"mainTabData": [tView, tArticle, todayView],
+        chart = sqlside.execute("select day,view from viewPerDay order by day desc limit 7")
+
+        ch1, ch2 = [],[]
+        for i in chart:
+            ch1.append(i[0])
+            ch2.append(i[1])
+
+        ch1 = ch1[::-1]
+        ch2 = ch2[::-1]
+        
+        rData = {"mainTabData": [tView, tArticle, todayView,ch1,ch2],
                  "articleTabData": json.loads(s),
                  "accountTabData":{
                     "total": tAccount
