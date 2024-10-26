@@ -409,18 +409,17 @@ body::-webkit-scrollbar {
 }
 
 div.editor-preview.editor-preview-active {
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.9);
     color: black;
 }
 
-.CodeMirror.cm-s-paper.CodeMirror-wrap{
-    background-color: rgba(0, 0, 0, 0.25);
+.CodeMirror.cm-s-paper.CodeMirror-wrap, div.editor-toolbar.fullscreen {
+    background-color: rgba(255, 255, 255, 0.9);
     border: solid 1px white;
 }
 
-.editor-preview-side.editor-preview-active-side{
-    background-color: rgba(0, 0, 0, 0.25);
-    border: solid 1px white;
+.editor-preview-side.editor-preview-active-side {
+    color: black !important;
 }
 
 .CodeMirror, .CodeMirror-scroll, .editor-preview-side.editor-preview-active-side {
