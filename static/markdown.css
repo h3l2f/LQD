@@ -41,6 +41,10 @@ ol,ul {
 	margin-top: .75rem;
 }
 
+ol {
+	margin-bottom: 0.75rem;
+}
+
 ol ul, ol ol, ul ul, ul ol {
 	margin-left: 2rem;
 	margin-bottom: .75rem;

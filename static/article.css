@@ -64,6 +64,8 @@ body::-webkit-scrollbar {
 
 .main .content .info h4, .main a h4 {
     font-size: 1em;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 .main .content {
@@ -80,9 +82,14 @@ body::-webkit-scrollbar {
 .main .content :where(h1,h2,h3,h4,h5,h6) {
 	line-height: 1;
 	margin: 0;
-	/* margin-top: 1.5rem; */
+	margin-top: 1.5rem;
 	text-rendering: optimizeLegibility;
     border-bottom: solid 1px;
+    margin-bottom: 5px;
+}
+
+.main .content :where(a) {
+    color: #0040ff
 }
 
 .main .content .info {

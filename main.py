@@ -225,9 +225,9 @@ def bv(id=0):
     ctn = BeautifulSoup(s[5], "lxml").text
     today = int(datetime.now().strftime("%d%m%y"))
     sqlside.execute(f"update articleContent set view = view+1 where id={id}",type="update")
-    sqlside.execute(f"update viewPerDay set view = view+1 where day={today}",type="update")
+    sqlside.execute(f"INSERT INTO viewPerDay (day,view) VALUES ({today},1) ON DUPLICATE KEY UPDATE view=view+1;",type="update")
     if id1: id = id1[1]
-    return render_template("article.html", logged = logged, nf=False, id=id, author=s[0], view=s[4]+1, createTime = cDate, lastTime = lChange, content = md(ctn).replace("\n", "<br>"))
+    return render_template("article.html", logged = logged, nf=False, id=id, author=s[0], view=s[4]+1, createTime = cDate, lastTime = lChange, content = md(ctn))
 
 if __name__ == '__main__':
     app.run(debug=True,host="0.0.0.0",port='80')
