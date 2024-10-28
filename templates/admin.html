@@ -208,10 +208,10 @@ validIdSearch = 0
     function changeTheme() {
         if (document.cookie.includes("theme=light")) {
             darkmode()
-            document.cookie = "theme=dark; path=/"
+            document.cookie = "theme=dark; path=/; max-age=31623400"
         } else {
             lightmode()
-            document.cookie = "theme=light; path=/"
+            document.cookie = "theme=light; path=/; max-age=31623400"
         }
     }
 
@@ -241,7 +241,7 @@ validIdSearch = 0
             lightmode()
         } else {
             lightmode()
-            document.cookie="theme=light; path=/"
+            document.cookie="theme=light; path=/; max-age=31623400"
         }
     })
 
