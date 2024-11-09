@@ -1,5 +1,12 @@
+<div align="center">
+
 ![Beta](https://img.shields.io/badge/On_Beta-Ver._0.4-orange.svg)
 [![About Developer](https://img.shields.io/badge/By-H3L2F-1600ff.svg)](https://h3l2f.site)
+<h1>STEM PROJECT BY <a href="https://h3l2f.site">H3L2F
+<img src="https://h3l2f.site/cdn-cgi/image/width=25/favicon.png"></a></h1>
+
+</div>
+
 # General
 NAME: STEM Project <br>
 FIRST UPLOAD: 23/10/2024 <br>
