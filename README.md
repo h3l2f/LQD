@@ -16,7 +16,7 @@ FIRST UPLOAD: 23/10/2024 <br>
 - Article can be found by id
 - User can be found by their username or link like: \<host\>/users/\<their username\>
 - User cannot create article (security reason)
-- Admin can cdit, change ctatus ~~and delete~~ specific article
+- Admin can cdit, change status ~~and delete~~ specific article
 - Admin can ban user but can't delete their account!
 That's it!
 # Developer
