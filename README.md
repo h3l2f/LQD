@@ -1,4 +1,4 @@
-![Beta](https://img.shields.io/badge/On_Beta-Ver._0.2-orange.svg)
+![Beta](https://img.shields.io/badge/On_Beta-Ver._0.4-orange.svg)
 [![About Developer](https://img.shields.io/badge/By-H3L2F-1600ff.svg)](https://h3l2f.site)
 # General
 NAME: STEM Project <br>
