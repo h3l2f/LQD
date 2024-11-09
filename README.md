@@ -8,8 +8,8 @@
 </div>
 
 # General
-NAME: STEM Project <br>
-FIRST UPLOAD: 23/10/2024 <br>
+- NAME: STEM Project <br>
+- FIRST UPLOAD: 23/10/2024 <br>
 # Features
 - General
     - Login
@@ -27,5 +27,5 @@ FIRST UPLOAD: 23/10/2024 <br>
 - Admin can ban user but can't delete their account!
 That's it!
 # Developer
-## [H3L2F](https://h3l2f.site) - Lead Developer
-##### DONE :skull:
+- ## [H3L2F](https://h3l2f.site) - Lead Developer
+- ###### DONE :skull:
