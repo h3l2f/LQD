@@ -164,7 +164,7 @@ def admin():
         
         s = sqlside.execute("SELECT * FROM articleContent ORDER BY id DESC")
         s = json.dumps(s, default=str)
-        today = int(datetime.now().strftime("%d%m%y"))
+        today = datetime.now().strftime("%y%m%d")
         s1 = sqlside.execute(f"""
         select
             (select count(*) from loginInformation) as c1,
@@ -184,7 +184,9 @@ def admin():
 
         ch1, ch2 = [],[]
         for i in chart:
-            ch1.append(i[0])
+            s1 = i[0]
+            s1 = s1[len(s1)-2:len(s1)] +"/"+ s1[len(s1)-4:len(s1)-2] +"/"+ s1[0:len(s1)-4]
+            ch1.append(s1)
             ch2.append(i[1])
 
         ch1 = ch1[::-1]
@@ -223,7 +225,7 @@ def bv(id=0):
     cDate = datetime.fromtimestamp(s[1]).strftime("%H:%M:%S %d/%m/%y")
     lChange = datetime.fromtimestamp(s[2]).strftime("%H:%M:%S %d/%m/%y")
     ctn = BeautifulSoup(s[5], "lxml").text
-    today = int(datetime.now().strftime("%d%m%y"))
+    today = (datetime.now().strftime("%y%m%d"))
     sqlside.execute(f"update articleContent set view = view+1 where id={id}",type="update")
     sqlside.execute(f"INSERT INTO viewPerDay (day,view) VALUES ({today},1) ON DUPLICATE KEY UPDATE view=view+1;",type="update")
     if id1: id = id1[1]

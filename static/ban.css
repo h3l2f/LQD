@@ -1,0 +1,177 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* transition: 0.2s; */
+    max-width: 100%;
+}
+
+body {
+    height: 100vh;
+    background-image: url("/static/login-background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: montserrat;
+    padding: 10px;
+}
+
+body::-webkit-scrollbar {
+    width: 0px;
+}
+
+.main {
+    width: 100%;
+    height: 100%;
+    max-width: 1200px;
+    margin: auto;
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
+    padding: 10px;
+    overflow: scroll;
+    overflow-x: hidden;
+    word-wrap: break-word;
+}
+
+.main::-webkit-scrollbar {
+    width: 0;
+}
+
+.main a {
+    text-decoration: none;
+    color: unset;
+    cursor: pointer;
+}
+
+.main .header img {
+    width: 100%;
+    /* height: 200px; */
+    /* object-fit: cover;
+    object-position: bottom; */
+    max-width: 1200px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 10px 10px 0 0;
+}
+
+.main .header {
+    margin-bottom: 5px;
+}
+
+
+.main .header .nav {
+    width: 100%;
+    margin: auto;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.main .header .nav nav h4 {
+    display: inline-block;
+    padding: 10px 10px;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.main .header .nav nav .special:hover {
+    background-color: #1500ffa8 !important;
+    color: white !important;
+}
+
+.main .header .nav nav h4:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.main .header .nav .toggle {
+    position: relative;
+    width: fit-content;
+    left: 100%;
+    transform: translateX(-100%);
+    padding: 3px;
+    margin: 4px;
+    margin-left: -5px;
+    border-radius: 5px;
+    transition: 0.2s;
+}
+
+.main .header .nav .toggle:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+
+}
+
+
+.main .header .nav .toggle svg {
+    vertical-align: middle;
+}
+
+
+.main .noti {
+    text-align: center;
+    border: solid 2px #ff0000;
+    margin-top: 10px;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #ff000069;
+    color: #b10000;
+}
+
+
+@media only screen and (min-width: 601px) {
+    .main .header .nav nav {
+        display: block !important;
+    }
+
+    .main .header .nav .toggle {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 601px) {
+    
+    .main .header img {
+        width: 100%;
+        height: fit-content;
+        object-fit: unset;
+        object-position: unset;
+    }
+
+    .main .header .nav {
+        max-width: 1150px;
+        width: 100%;
+        margin: auto;
+        background-color: rgba(255, 255, 255, 0.3);
+        padding: 5px;
+    }
+    
+    .main .header .nav nav {
+        display: flex;
+        flex-direction: column;
+        display: none;
+    }
+
+    .main .header .nav nav h4 {
+        display: inline-block;
+        padding: 10px 10px;
+        transition: 0.2s;
+        cursor: pointer;
+        text-align: center;
+        border-radius: 10px;
+    }
+
+    .main .header .nav nav .special {
+        margin-top: 25px;
+    }
+
+    .main .header .nav nav h4:last-child {
+        margin-top: 25px;
+    }
+
+    .main .header .nav nav .special:hover {
+        background-color: #1500ffa8;
+        color: white;
+    }
+
+    .main .header .nav nav h4:hover {
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+}
